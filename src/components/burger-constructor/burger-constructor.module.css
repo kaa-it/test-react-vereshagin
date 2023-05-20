@@ -1,0 +1,25 @@
+.content{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr min-content;
+    padding-top: 100px;
+    height: 85vh;
+    box-sizing: border-box;
+}
+.ul{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+}
+.btnBox{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
