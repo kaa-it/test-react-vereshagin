@@ -1,18 +1,17 @@
 import { useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import CardBox from '../card-box/card-box';
+import PropTypes from 'prop-types';
 
-import style from './burger-ingredients.module.css'
-
-let array = []
+import styles from './burger-ingredients.module.css'
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] =  useState('one')
 
     return (
-        <div className={style.content}>
-            <h2 className='text text_type_main-large' style={{paddingTop: '40px'}}>Соберите бургер</h2>
-            <div style={{ display: 'flex', width: '100%'}}>
+        <div className={styles.content}>
+            <h2 className={`text text_type_main-large ${styles.title}`}>Соберите бургер</h2>
+            <div className={styles.tabs}>
                 <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                     Булки
                 </Tab>
@@ -23,7 +22,7 @@ const BurgerIngredients = (props) => {
                     Начинки 
                 </Tab>
             </div>
-            <ul className={`${style.container} custom-scroll`} style={{overflowY: 'scroll', msOverflowX: 'hidden'}}>
+            <ul className={`${styles.container} custom-scroll`}>
                 <CardBox arr={props.arr} type="bun" text='Булки'/>
                 <CardBox arr={props.arr} type="sauce" text='Соусы'/>
                 <CardBox arr={props.arr}  type="main" text='Начинки'/>
@@ -31,6 +30,10 @@ const BurgerIngredients = (props) => {
 
         </div>
     )
+}
+
+BurgerIngredients.propTypes = {
+    arr: PropTypes.array
 }
 
 export default BurgerIngredients

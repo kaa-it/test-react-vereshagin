@@ -17,13 +17,3 @@
     grid-template-columns: max-content max-content;
     margin: auto;
 }
-.box{
-    display: grid;
-    grid-template-rows: min-content;
-    grid-template-columns: min-content min-content 1fr min-content min-content;
-    gap: 0 20px;
-    padding: 16px 32px 16px 0;
-    align-items: center;
-    box-sizing: border-box;
-    width: 100%;
-}

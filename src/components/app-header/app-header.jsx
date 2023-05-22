@@ -1,12 +1,7 @@
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Logo, ProfileIcon, BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import NavigationItem from '../navigation-item/navigation-item'
-import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import appHeader from './app-header.module.css'; 
-
-import { useRef, useState } from 'react';
 
 const AppHeader = () => {
     return (
@@ -19,7 +14,7 @@ const AppHeader = () => {
                     <ListIcon type="secondary"/>
                 </NavigationItem>
             </nav>
-            <Logo />
+            <div className={appHeader.logo}><Logo/></div>
             <NavigationItem class='text text_type_main-default text_color_inactive' text='Личный кабинет'>
                 <ProfileIcon type="secondary"/>
             </NavigationItem>

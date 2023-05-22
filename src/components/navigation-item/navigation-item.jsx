@@ -1,12 +1,19 @@
 import navStyles from './navigation-item.module.css';
+import PropTypes from 'prop-types';
 
 const NavigationItem = (props) => {
     return (
         <div className={navStyles.container}>
             {props.children}
-            <a style={{textDecoration: 'none', appearance: 'none'}} className={props.class}  href='#'>{props.text}</a>
+            <a className={`${props.class} ${navStyles.a}`}  href='#'>{props.text}</a>
         </div>
     )
+}
+
+NavigationItem.propTypes = {
+    class: PropTypes.string,
+    text: PropTypes.string,
+    children: PropTypes.element
 }
 
 export default NavigationItem
