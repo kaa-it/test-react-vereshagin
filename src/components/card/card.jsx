@@ -24,7 +24,7 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-    arr: PropTypes.array
+    arr: PropTypes.object
 }
 
 export default Card

@@ -1,7 +1,7 @@
 import styles from "./burger-constructor.module.css";
 import { CurrencyIcon, Button, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useState } from 'react';
-
+import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 
 {/*Массивы вспомогательные*/}
@@ -73,19 +73,6 @@ const ingridients = [
         "image_mobile":"https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
         "image_large":"https://code.s3.yandex.net/react/code/mineral_rings-large.png",
         "__v":0
-     },  {
-        "_id":"60666c42cc7b410027a1a9bb",
-        "name":"Хрустящие минеральные кольца",
-        "type":"main",
-        "proteins":808,
-        "fat":689,
-        "carbohydrates":609,
-        "calories":986,
-        "price":300,
-        "image":"https://code.s3.yandex.net/react/code/mineral_rings.png",
-        "image_mobile":"https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
-        "image_large":"https://code.s3.yandex.net/react/code/mineral_rings-large.png",
-        "__v":0
      }
 ]
 
@@ -95,20 +82,23 @@ const BurgerConstructor = () => {
     return (
         <form className={styles.content}>
             <ul className={styles.list}>
-                <ConstructorElement type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image_mobile}/> 
+                <div className={styles.right}><ConstructorElement  type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image_mobile}/></div> 
                 
                 <ul className={`${styles.ul} custom-scroll`}>
                     {ingridients.map((el) => {
                             if (el.type !== "bun"){
-                                return (<ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile} key={el._id}/>)
+                                return (<div className={styles.card}  key={el._id}>
+                                            <DragIcon />
+                                            <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile}/>
+                                        </div>)
                             } return null
                         })
                     }
                 </ul>
 
-                <ConstructorElement type="bottom" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image_mobile}/> 
+                <div className={styles.right}><ConstructorElement type="bottom" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image_mobile}/></div> 
             </ul>
-            <div className={styles.btnBox}>
+            <div className={`${styles.btnBox} ${styles.right}`}>
                 <p className={`text text_type_digits-default ${styles.p}`}>630</p>
                 <CurrencyIcon/> 
                 <div className={styles.btn}><Button htmlType="button" type={type} size="medium" onFocus={() => setType('secondary')}>Оформить заказ</Button></div>            
