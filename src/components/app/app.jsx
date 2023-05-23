@@ -1,5 +1,6 @@
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import OrderDetails from "../order-details/order-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useEffect, useState } from 'react';
 import AppHeader from "../app-header/app-header"
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -17,7 +18,7 @@ const App = () => {
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   },[])
   return (
-    <div className={styles.app}>
+    <div className={styles.app} id='root'>
         <AppHeader />
         <main className={styles.content}>
           {apidata 
@@ -26,6 +27,7 @@ const App = () => {
           <>
             <BurgerIngredients arr={apidata.data}/>
             <BurgerConstructor/>
+            <OrderDetails/>
           </>
           )}
         </main>

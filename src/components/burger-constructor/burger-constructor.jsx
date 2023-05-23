@@ -2,6 +2,7 @@ import styles from "./burger-constructor.module.css";
 import { CurrencyIcon, Button, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useState } from 'react';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 
 {/*Массивы вспомогательные*/}
@@ -79,6 +80,11 @@ const ingridients = [
 
 const BurgerConstructor = () => {
     const [type, setType] = useState()
+    const [isVisible, setVisivility] = useState(false)
+    const dragClick = () => {
+        setVisivility(!isVisible)
+    }
+    console.log(isVisible)
     return (
         <form className={styles.content}>
             <ul className={styles.list}>
@@ -87,10 +93,13 @@ const BurgerConstructor = () => {
                 <ul className={`${styles.ul} custom-scroll`}>
                     {ingridients.map((el) => {
                             if (el.type !== "bun"){
-                                return (<div className={styles.card}  key={el._id}>
-                                            <DragIcon />
-                                            <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile}/>
-                                        </div>)
+                                return (
+                                            <div className={styles.card} key={el._id}>
+                                                <div style={{cursor: 'pointer'}} onClick={dragClick}><DragIcon/></div>
+                                                <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile}/>
+                                                <IngredientDetails arr={el} visible={isVisible}/>
+                                            </div>
+                                            )
                             } return null
                         })
                     }

@@ -13,7 +13,7 @@ const Card = (props) => {
         return (
             <div className={styles.container} onClick={plus}>
                 {count > 0 && <Counter size="default" extraClass="m-1" count={count}/>}
-                <img className={styles.img} src={arr.image}/>
+                <img className={styles.img} src={arr.image} alt={arr.name}/>
                 <div className={`p-1 ${styles.price}`}>
                     <p className='text text_type_digits-default'>{arr.price}</p>
                     <CurrencyIcon type="primary"/>
