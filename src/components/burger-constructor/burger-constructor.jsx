@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { createPortal } from "react-dom";
-import OrderDetails from "../order-details/order-details";
+import OrderDetails from "../order-details/order-details"
+import PropTypes from 'prop-types';;
 
 
 {/*Массивы вспомогательные*/}
@@ -73,6 +74,10 @@ const BurgerConstructor = (props) => {
 
         </form>
     );
+}
+
+BurgerConstructor.propTypes = {
+    arr: PropTypes.array
 }
 
 export default BurgerConstructor;

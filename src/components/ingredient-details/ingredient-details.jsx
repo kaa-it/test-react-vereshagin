@@ -1,5 +1,6 @@
 import styles from './ingredient-details.module.css';
 import Modal from '../modal/modal';
+import PropTypes from 'prop-types';
 
 const nutritionText = `text text_type_main-default text_color_inactive`
 
@@ -18,6 +19,12 @@ const IngredientDetails = (props) => {
                 </ul>
             </Modal>)
         
+}
+
+IngredientDetails.propTypes = {
+    arr: PropTypes.array,
+    visible: PropTypes.bool,
+    closePopup: PropTypes.func
 }
 
 export default IngredientDetails

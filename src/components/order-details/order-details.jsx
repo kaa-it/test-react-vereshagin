@@ -1,6 +1,7 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.jpg'
 import Modal from '../modal/modal';
+import PropTypes from 'prop-types';
 
 const OrderDetails = (props) => {
     return (
@@ -12,6 +13,11 @@ const OrderDetails = (props) => {
                 <p className={`text_type_main-small text_color_inactive ${styles.wait}`}>Дождитесь готовности на орбитальной станции</p>
             </Modal>
         )
+}
+
+OrderDetails.propTypes = {
+    visible: PropTypes.bool,
+    closePopup: PropTypes.func
 }
 
 export default OrderDetails

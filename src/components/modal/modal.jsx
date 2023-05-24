@@ -1,7 +1,7 @@
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const Modal = (props) => {
     return (
@@ -12,6 +12,11 @@ const Modal = (props) => {
             </div>
         </ModalOverlay>
     )
+}
+
+Modal.propTypes = {
+    visible: PropTypes.bool,
+    closePopup: PropTypes.func
 }
 
 export default Modal
