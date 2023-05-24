@@ -40,6 +40,17 @@ const BurgerConstructor = (props) => {
         }) 
     },[id])
 
+    useEffect(() => {
+        const close = (e) => {
+          if(e.keyCode === 27){
+            setOrder(false)
+            setModalVisibility(false)
+          }
+        }
+        window.addEventListener('keydown', close)
+      return () => window.removeEventListener('keydown', close)
+    },[])
+
 
     return (
         <form className={styles.content}>
