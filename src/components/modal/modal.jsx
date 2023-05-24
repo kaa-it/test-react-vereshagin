@@ -4,14 +4,10 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import { useEffect, useState } from 'react';
 
 const Modal = (props) => {
-    const [isVisible, setVisivility] = useState(false)
-    const closePopup = () => {
-        setVisivility(true)
-    }
     return (
-        <ModalOverlay vis={isVisible}>
+        <ModalOverlay visible={props.visible} closePopup={props.closePopup}>
             <div className={styles.popup}>
-                <div className={styles.close} onMouseUp={closePopup}><CloseIcon /></div>
+                <div className={styles.close} onClick={props.closePopup}><CloseIcon /></div>
                 {props.children}
             </div>
         </ModalOverlay>

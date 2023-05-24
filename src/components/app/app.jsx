@@ -26,7 +26,7 @@ const App = () => {
           (
           <>
             <BurgerIngredients arr={apidata.data}/>
-            <BurgerConstructor/>
+            <BurgerConstructor arr={apidata.data}/>
             <OrderDetails/>
           </>
           )}

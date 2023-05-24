@@ -2,9 +2,9 @@ import styles from './order-details.module.css';
 import done from '../../images/done.jpg'
 import Modal from '../modal/modal';
 
-const OrderDetails = () => {
+const OrderDetails = (props) => {
     return (
-            <Modal>
+            <Modal visible={props.visible} closePopup={props.closePopup}>
                 <h2 className={`text_type_digits-large ${styles.id}`}>034536</h2>
                 <h3 className="text text_type_main-medium">идентификатор заказа</h3>
                 <img className={styles.img} src={done}/>

@@ -3,6 +3,8 @@ import { CurrencyIcon, Button, ConstructorElement } from "@ya.praktikum/react-de
 import { useEffect, useState } from 'react';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { createPortal } from "react-dom";
+import OrderDetails from "../order-details/order-details";
 
 
 {/*Массивы вспомогательные*/}
@@ -21,96 +23,52 @@ const bun = {
         "__v":0
      }
 
-const ingridients = [
-    {
-        "_id":"60666c42cc7b410027a1a9b9",
-        "name":"Соус традиционный галактический",
-        "type":"sauce",
-        "proteins":42,
-        "fat":24,
-        "carbohydrates":42,
-        "calories":99,
-        "price":15,
-        "image":"https://code.s3.yandex.net/react/code/sauce-03.png",
-        "image_mobile":"https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
-        "image_large":"https://code.s3.yandex.net/react/code/sauce-03-large.png",
-        "__v":0
-     },  {
-        "_id":"60666c42cc7b410027a1a9b4",
-        "name":"Мясо бессмертных моллюсков Protostomia",
-        "type":"main",
-        "proteins":433,
-        "fat":244,
-        "carbohydrates":33,
-        "calories":420,
-        "price":1337,
-        "image":"https://code.s3.yandex.net/react/code/meat-02.png",
-        "image_mobile":"https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-        "image_large":"https://code.s3.yandex.net/react/code/meat-02-large.png",
-        "__v":0
-     },  {
-        "_id":"60666c42cc7b410027a1a9bc",
-        "name":"Плоды Фалленианского дерева",
-        "type":"main",
-        "proteins":20,
-        "fat":5,
-        "carbohydrates":55,
-        "calories":77,
-        "price":874,
-        "image":"https://code.s3.yandex.net/react/code/sp_1.png",
-        "image_mobile":"https://code.s3.yandex.net/react/code/sp_1-mobile.png",
-        "image_large":"https://code.s3.yandex.net/react/code/sp_1-large.png",
-        "__v":0
-     },  {
-        "_id":"60666c42cc7b410027a1a9bb",
-        "name":"Хрустящие минеральные кольца",
-        "type":"main",
-        "proteins":808,
-        "fat":689,
-        "carbohydrates":609,
-        "calories":986,
-        "price":300,
-        "image":"https://code.s3.yandex.net/react/code/mineral_rings.png",
-        "image_mobile":"https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
-        "image_large":"https://code.s3.yandex.net/react/code/mineral_rings-large.png",
-        "__v":0
-     }
-]
-
-
-const BurgerConstructor = () => {
+const BurgerConstructor = (props) => {
     const [type, setType] = useState()
-    const [isVisible, setVisivility] = useState(false)
-    const dragClick = () => {
-        setVisivility(!isVisible)
-    }
-    console.log(isVisible)
+    const [modalVisibility, setModalVisibility] = useState(false)
+    const [info, setInfo] = useState(null)
+    const [id, setId] = useState(null)
+    const [order, setOrder] = useState(false)
+
+    useEffect(()=> {
+        props.arr.map(el => {
+            if (el._id === id){
+                setInfo(el)
+                setModalVisibility(true)
+            }return null
+        }) 
+    },[id])
+
+
     return (
         <form className={styles.content}>
             <ul className={styles.list}>
                 <div className={styles.right}><ConstructorElement  type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image_mobile}/></div> 
                 
                 <ul className={`${styles.ul} custom-scroll`}>
-                    {ingridients.map((el) => {
+                    {props.arr.map((el) => {
                             if (el.type !== "bun"){
                                 return (
-                                            <div className={styles.card} key={el._id}>
-                                                <div style={{cursor: 'pointer'}} onClick={dragClick}><DragIcon/></div>
-                                                <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile}/>
-                                                <IngredientDetails arr={el} visible={isVisible}/>
-                                            </div>
-                                            )
+                                        <div className={styles.card} key={el._id}>
+                                            <div style={{cursor: 'pointer'}} onClick={() => {
+                                                setId(el._id)
+                                                }}><DragIcon/></div>
+                                            <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile}/>
+                                            { id && modalVisibility && createPortal (<IngredientDetails visible={modalVisibility} closePopup={() => setModalVisibility(false)} arr={info}/>, document.body) }
+                                        </div>
+                                        )
                             } return null
                         })
                     }
                 </ul>
 
-                <div className={styles.right}><ConstructorElement type="bottom" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image_mobile}/></div> 
+                <div className={styles.right}><ConstructorElement type="bottom" isLocked={true} text={`${bun.name} (низ)`} price={bun.price} thumbnail={bun.image_mobile}/></div> 
             </ul>
             <div className={`${styles.btnBox} ${styles.right}`}>
                 <p className={`text text_type_digits-default ${styles.p}`}>630</p>
                 <CurrencyIcon/> 
-                <div className={styles.btn}><Button htmlType="button" type={type} size="medium" onFocus={() => setType('secondary')}>Оформить заказ</Button></div>            
+                <div className={styles.btn}><Button onClick={()=> setOrder(true)} htmlType="button" type={type} size="medium" onFocus={() => setType('secondary')}>Оформить заказ</Button></div>            
+                {order && createPortal ((<OrderDetails visible={order} closePopup={() => setOrder(false)}/>),document.body)}
             </div>
 
         </form>
