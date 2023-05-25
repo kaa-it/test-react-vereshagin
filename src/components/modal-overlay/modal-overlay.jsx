@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 const ModalOverlay = (props) => {
     const visibility =  props.visible ? 'flex' : 'none'
     return (
-        <div className={styles.overlay} style={{display: `${visibility}`}} onMouseUp={props.closePopup}>
+        <div className={styles.overlay} style={{display: `${visibility}`}} onMouseUp={(e) => {
+            props.closePopup()
+            e.stopPropagation()
+            }}>
             {props.children}
         </div>)
 }

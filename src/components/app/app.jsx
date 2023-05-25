@@ -13,12 +13,17 @@ const App = () => {
   const [apidata, setData] = useState(null)
   useEffect(() => {
     fetch(`${domen}`)
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+        })
       .then(res => setData({...res}))
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   },[])
   return (
-    <div className={styles.app} id='root'>
+    <div className={styles.app}>
         <AppHeader />
         <main className={styles.content}>
           {apidata 
@@ -27,7 +32,6 @@ const App = () => {
           <>
             <BurgerIngredients arr={apidata.data}/>
             <BurgerConstructor arr={apidata.data}/>
-            <OrderDetails/>
           </>
           )}
         </main>

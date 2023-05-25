@@ -1,11 +1,11 @@
 import styles from "./burger-constructor.module.css";
 import { CurrencyIcon, Button, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import Modal from "../modal/modal";
 import { useEffect, useState } from 'react';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { createPortal } from "react-dom";
 import OrderDetails from "../order-details/order-details"
 import PropTypes from 'prop-types';;
+
 
 
 {/*Массивы вспомогательные*/}
@@ -26,31 +26,7 @@ const bun = {
 
 const BurgerConstructor = (props) => {
     const [type, setType] = useState()
-    const [modalVisibility, setModalVisibility] = useState(false)
-    const [info, setInfo] = useState(null)
-    const [id, setId] = useState(null)
     const [order, setOrder] = useState(false)
-
-    useEffect(()=> {
-        props.arr.map(el => {
-            if (el._id === id){
-                setInfo(el)
-                setModalVisibility(true)
-            }return null
-        }) 
-    },[id])
-
-    useEffect(() => {
-        const close = (e) => {
-          if(e.keyCode === 27){
-            setOrder(false)
-            setModalVisibility(false)
-          }
-        }
-        window.addEventListener('keydown', close)
-      return () => window.removeEventListener('keydown', close)
-    },[])
-
 
     return (
         <form className={styles.content}>
@@ -62,11 +38,8 @@ const BurgerConstructor = (props) => {
                             if (el.type !== "bun"){
                                 return (
                                         <div className={styles.card} key={el._id}>
-                                            <div style={{cursor: 'pointer'}} onClick={() => {
-                                                setId(el._id)
-                                                }}><DragIcon/></div>
+                                            <div style={{cursor: 'pointer'}}><DragIcon/></div>
                                             <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile}/>
-                                            { id && modalVisibility && createPortal (<IngredientDetails visible={modalVisibility} closePopup={() => setModalVisibility(false)} arr={info}/>, document.body) }
                                         </div>
                                         )
                             } return null
@@ -80,7 +53,7 @@ const BurgerConstructor = (props) => {
                 <p className={`text text_type_digits-default ${styles.p}`}>630</p>
                 <CurrencyIcon/> 
                 <div className={styles.btn}><Button onClick={()=> setOrder(true)} htmlType="button" type={type} size="medium" onFocus={() => setType('secondary')}>Оформить заказ</Button></div>            
-                {order && createPortal ((<OrderDetails visible={order} closePopup={() => setOrder(false)}/>),document.body)}
+                {order &&  (<Modal visible={order} closePopup={() => setOrder(false)}><OrderDetails/></Modal>)}
             </div>
 
         </form>
