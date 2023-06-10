@@ -1,15 +1,20 @@
 import Card from '../card/card';
 import PropTypes from 'prop-types';
+import { BurgerContext } from '../../services/BurgerContext';
+import { useContext } from 'react'; 
 
 import styles from './card-box.module.css'
 
 const CardBox = (props) => {
+    const {apidata} = useContext(BurgerContext)
+    const {text, type} = props
+
     return (
         <li className={styles.container}>
-            <h3 className='text text_type_main-medium'>{props.text}</h3>
+            <h3 className='text text_type_main-medium'>{text}</h3>
                 <div className={styles.cardBox}>
-                    {props.arr.map((item) =>{
-                        if (item.type === props.type){
+                    {apidata.data.map(item =>{
+                        if (item.type === type){
                             return <Card key={item._id} arr={item}/>
                         }return null
                     })}
@@ -19,7 +24,6 @@ const CardBox = (props) => {
 }
 
 CardBox.propTypes = {
-    arr: PropTypes.array,
     text: PropTypes.string,
     type: PropTypes.string
 }

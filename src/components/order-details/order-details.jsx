@@ -1,7 +1,7 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.jpg'
 
-const OrderDetails = (props) => {
+const OrderDetails = () => {
     return (
             <>
                 <h2 className={`text_type_digits-large ${styles.id}`}>034536</h2>
