@@ -7,6 +7,7 @@ import { BurgerContext } from "../../services/BurgerContext";
 import { ConstructorContext } from "../../services/ConstructorContext";
 import { BunContext } from "../../services/BunContext";
 import { PriceContext } from "../../services/PriceContext";
+import { OrderContext } from "../../services/OrderContext";
 
 
 const domen = 'https://norma.nomoreparties.space/api/';
@@ -63,12 +64,13 @@ const App = () => {
   const [list, setList] = useState([])
   const [bun, setBun] = useState(defailtBun)
   const [price, setPrice] = useReducer(reducer, bun.price * 2);
+  const [order, setOrder] = useState(null)
 
-  const subOrder = () =>{
+  const subOrder = (burgerList) =>{
     fetch(`${domen}orders`, {
       method: 'POST',
       body: JSON.stringify({
-        ingredients: [list._id]
+        ingredients: burgerList.map(el =>  el._id)
       }), 
       headers: {
         'Content-Type': 'application/json'
@@ -80,7 +82,7 @@ const App = () => {
       }
       return Promise.reject(`Ошибка ${res.status}`);
       })
-    .then(res => setOrder(res.order.number))
+    .then(res => res.success ? setOrder(res.order.number) : null)
     .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
 }
 
@@ -97,10 +99,12 @@ const App = () => {
                 <ConstructorContext.Provider value={{list, setList}}>
                   <BunContext.Provider value={{bun, setBun}}>
                     <PriceContext.Provider value={{price, setPrice}}>
+                      <OrderContext.Provider value={{order, setOrder}}>
 
-                      <BurgerIngredients/>
-                      <BurgerConstructor/>
+                        <BurgerIngredients/>
+                        <BurgerConstructor subClick={subOrder}/>
 
+                      </OrderContext.Provider>
                     </PriceContext.Provider>
                   </BunContext.Provider>
                 </ConstructorContext.Provider>

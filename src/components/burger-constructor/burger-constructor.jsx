@@ -7,10 +7,13 @@ import OrderDetails from "../order-details/order-details"
 import { ConstructorContext } from "../../services/ConstructorContext";
 import { BunContext } from "../../services/BunContext";
 import { PriceContext } from "../../services/PriceContext";
+import PropTypes from 'prop-types';
 
-const BurgerConstructor = () => {
+const BurgerConstructor = (props) => {
+    const {subClick} = props
+
     const [type, setType] = useState()
-    const [order, setOrder] = useState(false)
+    const [vis, setVis] = useState(false)
     const {list} = useContext(ConstructorContext)
     const {bun} = useContext(BunContext)
     const {price} = useContext(PriceContext)
@@ -43,12 +46,20 @@ const BurgerConstructor = () => {
             <div className={`${styles.btnBox} ${styles.right}`}>
                 <p className={`text text_type_digits-default ${styles.p}`}>{price}</p>
                 <CurrencyIcon/> 
-                <div className={styles.btn}><Button onClick={()=> setOrder(true)} htmlType="button" type={type} size="medium" onFocus={() => setType('secondary')}>Оформить заказ</Button></div>            
-                {order &&  (<Modal visible={order} closePopup={() => setOrder(false)}><OrderDetails/></Modal>)}
+                <div className={styles.btn}><Button onClick={()=>{
+                subClick(list)
+                setVis(true)
+            }
+                } htmlType="button" type={type} size="medium" onFocus={() => setType('secondary')}>Оформить заказ</Button></div>            
+                {vis &&  (<Modal visible={vis} closePopup={() => setVis(false)}><OrderDetails/></Modal>)}
             </div>
 
         </form>
     );
+}
+
+BurgerConstructor.propTypes = {
+    subClick: PropTypes.func
 }
 
 export default BurgerConstructor;
