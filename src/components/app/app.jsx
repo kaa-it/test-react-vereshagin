@@ -4,7 +4,6 @@ import AppHeader from "../app-header/app-header"
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { BurgerContext } from "../../services/BurgerContext";
-import { ConstructorContext } from "../../services/ConstructorContext";
 import { BunContext } from "../../services/BunContext";
 import { PriceContext } from "../../services/PriceContext";
 import { OrderContext } from "../../services/OrderContext";
@@ -61,7 +60,6 @@ const App = () => {
                 //ContextData//
   
   const data = {apidata}
-  const [list, setList] = useState([])
   const [bun, setBun] = useState(defailtBun)
   const [price, setPrice] = useReducer(reducer, bun.price * 2);
   const [order, setOrder] = useState(null)
@@ -96,7 +94,6 @@ const App = () => {
 
             (
               <BurgerContext.Provider value={data}>
-                <ConstructorContext.Provider value={{list, setList}}>
                   <BunContext.Provider value={{bun, setBun}}>
                     <PriceContext.Provider value={{price, setPrice}}>
                       <OrderContext.Provider value={{order, setOrder}}>
@@ -107,7 +104,6 @@ const App = () => {
                       </OrderContext.Provider>
                     </PriceContext.Provider>
                   </BunContext.Provider>
-                </ConstructorContext.Provider>
               </BurgerContext.Provider>
             )
           }

@@ -4,25 +4,28 @@ import PropTypes from 'prop-types';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useState, useContext } from 'react';
-import { ConstructorContext } from '../../services/ConstructorContext';
 import { BunContext } from '../../services/BunContext';
 import { PriceContext } from '../../services/PriceContext';
+import { ADD_NEW_INGREDIENT } from '../../services/constructorSlice';
+import { useDispatch } from 'react-redux';
 
 const Card = (props) => {
     const [count, setCount] = useState(null)
     const [modalVisibility, setModalVisibility] = useState(false)
 
-    const {list, setList} = useContext(ConstructorContext)
+    const dispatch = useDispatch()
+
     const {bun, setBun} = useContext(BunContext)
     const {price, setPrice} = useContext(PriceContext)
 
+    const arr = props.arr
+
     const plus = () => {
         setCount(count+1)
-        setList([...list, arr])
+        dispatch(ADD_NEW_INGREDIENT(arr))
         setPrice({type: 'SET_INGREDIRNT', arr: arr})
     }
-    
-    const arr = props.arr
+
         return (
             <>
             <div className={styles.container} onClick={() => {

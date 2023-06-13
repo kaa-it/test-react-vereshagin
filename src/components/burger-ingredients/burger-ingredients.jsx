@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import CardBox from '../card-box/card-box';
-import PropTypes from 'prop-types';
+
 
 import styles from './burger-ingredients.module.css'
 

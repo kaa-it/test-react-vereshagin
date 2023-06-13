@@ -4,19 +4,23 @@ import Modal from "../modal/modal";
 import { useState, useContext } from 'react';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details"
-import { ConstructorContext } from "../../services/ConstructorContext";
 import { BunContext } from "../../services/BunContext";
 import { PriceContext } from "../../services/PriceContext";
 import PropTypes from 'prop-types';
+import constructorSlice from "../../services/constructorSlice";
+import { useSelector } from "react-redux";
 
 const BurgerConstructor = (props) => {
     const {subClick} = props
 
     const [type, setType] = useState()
     const [vis, setVis] = useState(false)
-    const {list} = useContext(ConstructorContext)
     const {bun} = useContext(BunContext)
     const {price} = useContext(PriceContext)
+
+    const list = useSelector(state => state.list)
+    console.log(list)
+    
 
     return (
         <form className={styles.content}>
