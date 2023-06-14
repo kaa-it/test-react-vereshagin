@@ -3,10 +3,8 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from 'prop-types';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { useState, useContext } from 'react';
-import { BunContext } from '../../services/BunContext';
-import { PriceContext } from '../../services/PriceContext';
-import { ADD_NEW_INGREDIENT } from '../../services/constructorSlice';
+import { useState } from 'react';
+import { SET_BUN, SET_INGREDIRNT } from '../../services/constructorSlice';
 import { useDispatch } from 'react-redux';
 
 const Card = (props) => {
@@ -15,15 +13,11 @@ const Card = (props) => {
 
     const dispatch = useDispatch()
 
-    const {bun, setBun} = useContext(BunContext)
-    const {price, setPrice} = useContext(PriceContext)
-
     const arr = props.arr
 
     const plus = () => {
         setCount(count+1)
-        dispatch(ADD_NEW_INGREDIENT(arr))
-        setPrice({type: 'SET_INGREDIRNT', arr: arr})
+        dispatch(SET_INGREDIRNT(arr))
     }
 
         return (
@@ -31,8 +25,7 @@ const Card = (props) => {
             <div className={styles.container} onClick={() => {
                     if (arr.type === 'bun') {
                         setModalVisibility(true)
-                        setBun(arr)
-                        setPrice({type: 'SET_BUN', arr: arr, bun: bun})
+                        dispatch(SET_BUN(arr))
                     }else{
                         plus()
                         setModalVisibility(true)

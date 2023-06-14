@@ -1,13 +1,10 @@
 import styles from "./burger-constructor.module.css";
 import { CurrencyIcon, Button, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../order-details/order-details"
-import { BunContext } from "../../services/BunContext";
-import { PriceContext } from "../../services/PriceContext";
 import PropTypes from 'prop-types';
-import constructorSlice from "../../services/constructorSlice";
 import { useSelector } from "react-redux";
 
 const BurgerConstructor = (props) => {
@@ -15,25 +12,23 @@ const BurgerConstructor = (props) => {
 
     const [type, setType] = useState()
     const [vis, setVis] = useState(false)
-    const {bun} = useContext(BunContext)
-    const {price} = useContext(PriceContext)
 
-    const list = useSelector(state => state.list)
-    console.log(list)
+    const bun = useSelector(state => state.constructor.bun)
+    const ingredients = useSelector(state => state.constructor.ingredients)
     
 
     return (
         <form className={styles.content}>
             <ul className={styles.list}>
-                { list &&
+                { ingredients && bun &&
                 <>
                     <div className={styles.right}><ConstructorElement  type="top" isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image_mobile}/></div> 
                     
                     <ul className={`${styles.ul} custom-scroll`}>
-                        {list.map((el) => {
+                        {ingredients.map((el) => {
                                 if (el.type !== "bun"){
                                     return (
-                                            <div className={styles.card} key={el._id}>
+                                            <div className={styles.card} key={el.id}>
                                                 <div style={{cursor: 'pointer'}}><DragIcon/></div>
                                                 <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile}/>
                                             </div>
@@ -48,10 +43,10 @@ const BurgerConstructor = (props) => {
                 }
             </ul>
             <div className={`${styles.btnBox} ${styles.right}`}>
-                <p className={`text text_type_digits-default ${styles.p}`}>{price}</p>
+                <p className={`text text_type_digits-default ${styles.p}`}>{222}</p>
                 <CurrencyIcon/> 
                 <div className={styles.btn}><Button onClick={()=>{
-                subClick(list)
+                subClick(ingredients)
                 setVis(true)
             }
                 } htmlType="button" type={type} size="medium" onFocus={() => setType('secondary')}>Оформить заказ</Button></div>            
