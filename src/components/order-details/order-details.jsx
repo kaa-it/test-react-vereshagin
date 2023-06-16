@@ -1,10 +1,9 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.jpg'
-import { OrderContext } from '../../services/OrderContext';
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 const OrderDetails = () => {
-    const {order} = useContext(OrderContext)
+    const order = useSelector(state => state.orderDetails)
     return (
             <>
                 <h2 className={`text_type_digits-large ${styles.id}`}>{order}</h2>

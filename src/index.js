@@ -7,7 +7,7 @@ import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 
-const store = configureStore({reducer: rootReducer})
+const store = configureStore({reducer: rootReducer, devTools: process.env.NODE_ENV !== 'production',})
 
 ReactDOM.render(
   <React.StrictMode>

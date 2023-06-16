@@ -16,34 +16,32 @@ const defaultBun = {
 }
 
 const initialState = {
-  bun: null,
+  bun: defaultBun,
   ingredients: []
 }
 
 const constructorSlice = createSlice({
-    name: 'CONSTRUCTOR',
+    name: 'BURGER_CONSTRUCTOR',
     initialState,
     reducers: {
         SET_BUN: {
-            reducer: (state, action) => {
-              return state.bun = action.payload
-            },
+            reducer: (state, action) => {state.bun = action.payload}
+            ,
             prepare: (array) => {
               const id = nanoid()
-              return { payload: { id, array } }
+              return { payload: array = {...array, unicId: id} }
             }
         },
-        SET_INGREDIRNT: {
-          reducer: (state, action) => {
-            return state.ingredients = [...state.ingredients, action.payload]
-          },
+        SET_INGREDIENT: {
+          reducer: (state, action) => {state.ingredients = [...state.ingredients, action.payload]}
+          ,
           prepare: (array) => {
             const id = nanoid()
-            return { payload: { id, array } }
+            return { payload: array = {...array, unicId: id} }
           }
       }
     }
 })
-export const { SET_BUN, SET_INGREDIRNT} = constructorSlice.actions
+export const { SET_BUN, SET_INGREDIENT} = constructorSlice.actions
 
 export default constructorSlice

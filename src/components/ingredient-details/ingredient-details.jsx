@@ -1,11 +1,12 @@
 import styles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const nutritionText = `text text_type_main-default text_color_inactive`
 
-const IngredientDetails = (props) => {
-    const arr = props.arr
-    return (
+const IngredientDetails = () => {
+    const arr = useSelector(state => state.ingredientDetails)
+    return ( arr &&
             <>
                 <h2 className={`text_type_main-large ${styles.title}`}>Детали ингредиента</h2>
                 <img src={arr.image_large} alt={arr.name} className={styles.img}/>
