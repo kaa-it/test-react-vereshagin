@@ -5,7 +5,7 @@ const ingredientDetailsSlice = createSlice({
     initialState: null,
     reducers: {
         SET_INGREDIENT_DETAILS: (state, action) => {
-                state = action.payload
+                return state = action.payload
             }
         }
 })

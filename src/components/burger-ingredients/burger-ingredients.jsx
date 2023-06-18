@@ -7,6 +7,7 @@ import styles from './burger-ingredients.module.css'
 
 const BurgerIngredients = () => {
     const [current, setCurrent] =  useState('one')
+    
 
     return (
         <div className={styles.content}>
@@ -22,10 +23,10 @@ const BurgerIngredients = () => {
                     Начинки 
                 </Tab>
             </div>
-            <ul className={`${styles.container} custom-scroll`}>
-                <CardBox type="bun" text='Булки'/>
-                <CardBox type="sauce" text='Соусы'/>
-                <CardBox type="main" text='Начинки'/>
+            <ul className={`${styles.container} custom-scroll`} id='container'>
+                <section id='one'><CardBox type="bun" text='Булки'/></section>
+                <section id='two'><CardBox type="sauce" text='Соусы'/></section>
+                <section id='three'><CardBox type="main" text='Начинки'/></section>
             </ul>
 
         </div>
