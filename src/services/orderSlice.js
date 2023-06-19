@@ -5,7 +5,7 @@ const orderSlice = createSlice({
     initialState: null,
     reducers: {
         SET_ORDER_NUMBER: (state, action) => {
-                state = action.payload
+                return state = action.payload
             }
         }
 })

@@ -12,6 +12,9 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 import { SET_APIDATA } from "../../services/ingredientsSlice";
 import { SET_ORDER_NUMBER } from "../../services/orderSlice";
+
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
                 
                 //Constants//
 
@@ -60,8 +63,10 @@ const App = () => {
         <AppHeader />
 
         <main className={styles.content}>
-          <BurgerIngredients/>
-          <BurgerConstructor subClick={subOrder}/>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients/>
+            <BurgerConstructor subClick={subOrder}/>
+          </DndProvider>
         </main>
 
     </div>

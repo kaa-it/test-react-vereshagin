@@ -4,37 +4,37 @@ import PropTypes from 'prop-types';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useState } from 'react';
-import { SET_BUN, SET_INGREDIENT } from '../../services/constructorSlice';
 import { useDispatch } from 'react-redux';
 import { SET_INGREDIENT_DETAILS } from '../../services/ingredientDetailsSlice';
+import { useDrag } from 'react-dnd';
 
 const Card = (props) => {
-    const [count, setCount] = useState(null)
     const [modalVisibility, setModalVisibility] = useState(false)
+
+    const {arr} = props
+
+    const [ , cardRef] = useDrag({
+        type: 'ingredient',
+        item: arr
+    })
 
     const dispatch = useDispatch()
 
-    const arr = props.arr
-
-    const plus = () => {
-        setCount(count+1)
-        dispatch(SET_INGREDIENT(arr))
+    const seeDetails = () => {
+        dispatch(SET_INGREDIENT_DETAILS(arr))
+        setModalVisibility(true)
     }
 
-        return (
+        return (arr &&
             <>
-            <div className={styles.container} onClick={() => {
+            <div ref={cardRef} className={styles.container} onClick={() => {
                     if (arr.type === 'bun') {
-                        dispatch(SET_BUN(arr))
-                        dispatch(SET_INGREDIENT_DETAILS(arr))
-                        setModalVisibility(true)
+                        seeDetails()
                     }else{
-                        dispatch(SET_INGREDIENT_DETAILS(arr))
-                        plus()
-                        setModalVisibility(true)
+                        seeDetails()
                     }
                 }}>
-                {count > 0 && <Counter size="default" extraClass="m-1" count={count}/>}
+                {arr.__v > 0 && <Counter size="default" extraClass="m-1" count={arr.__v}/>}
                 <img className={styles.img} src={arr.image} alt={arr.name}/>
                 <div className={`p-1 ${styles.price}`}>
                     <p className='text text_type_digits-default'>{arr.price}</p>
