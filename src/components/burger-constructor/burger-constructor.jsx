@@ -55,7 +55,7 @@ const BurgerConstructor = (props) => {
     const [, dropInRef] = useDrop({
         accept: 'constIngredient',
         drop(item){
-            ingredients.splice(e, 0, ingredients.splice(item.unicId, 1)[0]);
+            
         }
     })
 
@@ -69,7 +69,7 @@ const BurgerConstructor = (props) => {
                         <ul className={`${styles.ul} custom-scroll`} ref={dropInRef}>
                             {ingredients.map((el) => {
                                     if (el.type !== "bun"){
-                                        return ( 
+                                        return ( //!isDrag && пропадают все элементы, поэтому функции удаления ингредиента при переносе отключена
                                                 <div className={styles.card} key={el.unicId} ref={ingredientRef}>
                                                     <div style={{cursor: 'pointer'}} ><DragIcon/></div>
                                                     <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile} handleClose={()=>{

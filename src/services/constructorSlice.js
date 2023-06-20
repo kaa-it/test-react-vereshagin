@@ -40,7 +40,12 @@ const constructorSlice = createSlice({
             return { payload: array = {...array, unicId: id} }
           }
         },
-        DELETE_INGREDIENT: (state, action) => {state.ingredients = [...state.ingredients.filter(el => el.unicId !== action.payload )]}
+        DELETE_INGREDIENT: (state, action) => {state.ingredients = [...state.ingredients.filter(el => el.unicId !== action.payload )]},
+        SWAP_INGREDIENT: (state) => {
+          const ingredients = [...state.ingredients];
+          //ingredients.splice(toIndex, 0, ingredients.splice(fromIndex, 1)[0]);
+          //вопрос: как дастать ингредиент, на который я собственно сбросил перетаскиваемый. Т.е. как достать toIndex
+        }
     }
 })
 export const { SET_BUN, ADD_INGREDIENT, DELETE_INGREDIENT} = constructorSlice.actions
