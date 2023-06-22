@@ -34,7 +34,7 @@ const Card = (props) => {
                         seeDetails()
                     }
                 }}>
-                {arr.__v > 0 && <Counter size="default" extraClass="m-1" count={arr.__v}/>}
+                {arr.count > 0 && <Counter size="default" extraClass="m-1" count={arr.count}/>}
                 <img className={styles.img} src={arr.image} alt={arr.name}/>
                 <div className={`p-1 ${styles.price}`}>
                     <p className='text text_type_digits-default'>{arr.price}</p>

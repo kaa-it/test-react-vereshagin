@@ -12,7 +12,7 @@ const CardBox = (props) => {
         <li className={styles.container}>
             <h3 className='text text_type_main-medium'>{text}</h3>
                 <div className={styles.cardBox}>
-                    {ingredientsList && ingredientsList.map(item =>{
+                    {ingredientsList.map(item =>{
                         if (item.type === type){
                             return <Card key={item._id} arr={item}/>
                         }return null

@@ -1,22 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-const defaultBun = {
-  "_id":"60666c42cc7b410027a1a9b1",
-  "name":"Краторная булка N-200i",
-  "type":"bun",
-  "proteins":80,
-  "fat":24,
-  "carbohydrates":53,
-  "calories":420,
-  "price":1255,
-  "image":"https://code.s3.yandex.net/react/code/bun-02.png",
-  "image_mobile":"https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-  "image_large":"https://code.s3.yandex.net/react/code/bun-02-large.png",
-  "__v":0
-}
-
 const initialState = {
-  bun: defaultBun,
+  bun: null,
   ingredients: []
 }
 
@@ -24,16 +9,10 @@ const constructorSlice = createSlice({
     name: 'BURGER_CONSTRUCTOR',
     initialState,
     reducers: {
-        SET_BUN: {
-            reducer: (state, action) => {state.bun = action.payload}
-            ,
-            prepare: (array) => {
-              const id = nanoid()
-              return { payload: array = {...array, unicId: id} }
-            }
-        },
+        SET_BUN: (state, action) => {state.bun = action.payload},
         ADD_INGREDIENT: {
           reducer: (state, action) => {state.ingredients = [...state.ingredients, action.payload]}
+          
           ,
           prepare: (array) => {
             const id = nanoid()
@@ -41,13 +20,14 @@ const constructorSlice = createSlice({
           }
         },
         DELETE_INGREDIENT: (state, action) => {state.ingredients = [...state.ingredients.filter(el => el.unicId !== action.payload )]},
-        SWAP_INGREDIENT: (state) => {
+        SWAP_INGREDIENT: (state, action) => {
           const ingredients = [...state.ingredients];
-          //ingredients.splice(toIndex, 0, ingredients.splice(fromIndex, 1)[0]);
-          //вопрос: как дастать ингредиент, на который я собственно сбросил перетаскиваемый. Т.е. как достать toIndex
+      
+          ingredients.splice(action.payload.toIndex, 0, ingredients.splice(action.payload.fromIndex, 1)[0]);
+          //не понимаю почему не перемещается, вроде индексы передает правильные, но не работает
         }
     }
 })
-export const { SET_BUN, ADD_INGREDIENT, DELETE_INGREDIENT} = constructorSlice.actions
+export const { SET_BUN, ADD_INGREDIENT, DELETE_INGREDIENT, SWAP_INGREDIENT} = constructorSlice.actions
 
 export default constructorSlice
