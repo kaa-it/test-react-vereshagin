@@ -1,11 +1,11 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import CardBox from '../card-box/card-box';
 import PropTypes from 'prop-types';
 
 import styles from './burger-ingredients.module.css'
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
     const [current, setCurrent] =  useState('one')
 
     return (
@@ -23,17 +23,13 @@ const BurgerIngredients = (props) => {
                 </Tab>
             </div>
             <ul className={`${styles.container} custom-scroll`}>
-                <CardBox arr={props.arr} type="bun" text='Булки'/>
-                <CardBox arr={props.arr} type="sauce" text='Соусы'/>
-                <CardBox arr={props.arr}  type="main" text='Начинки'/>
+                <CardBox type="bun" text='Булки'/>
+                <CardBox type="sauce" text='Соусы'/>
+                <CardBox type="main" text='Начинки'/>
             </ul>
 
         </div>
     )
-}
-
-BurgerIngredients.propTypes = {
-    arr: PropTypes.array
 }
 
 export default BurgerIngredients
