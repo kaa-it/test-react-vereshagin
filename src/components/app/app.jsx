@@ -1,5 +1,6 @@
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import OrderDetails from "../order-details/order-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useEffect, useState } from 'react';
 import AppHeader from "../app-header/app-header"
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -12,7 +13,12 @@ const App = () => {
   const [apidata, setData] = useState(null)
   useEffect(() => {
     fetch(`${domen}`)
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+        })
       .then(res => setData({...res}))
       .catch(err => console.log(`Что-то пошло не так :( Ошибка: ${err}`))
   },[])
@@ -25,7 +31,7 @@ const App = () => {
           (
           <>
             <BurgerIngredients arr={apidata.data}/>
-            <BurgerConstructor/>
+            <BurgerConstructor arr={apidata.data}/>
           </>
           )}
         </main>
