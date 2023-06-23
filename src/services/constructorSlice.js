@@ -24,10 +24,6 @@ const constructorSlice = createSlice({
           const ingredients = [...state.ingredients]
           const {dragIndex, hoverIndex} = action.payload
           ingredients.splice(hoverIndex, 0, ingredients.splice(dragIndex, 1)[0]);
-          //Данный пример кода почему-то не работает, хотя он предложен наставником. 
-          //Экшен я исправил, да и вроде всё передаётся правильно. Но почему-то, во-первых, оно возращает пустой массив, 
-          //а, во-вторых, может это на что-то влияет, хотя мало вероятно, ingredients изначально содержит в себе пустые объекты, 
-          //как элементы в массиве. 
         }
     }
 })

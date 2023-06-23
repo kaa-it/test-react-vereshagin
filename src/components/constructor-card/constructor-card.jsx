@@ -10,8 +10,6 @@ import { DECREASE } from "../../services/ingredientsSlice";
 
 const ConstructorCard = (props) => {
     const {el, index, moveCard} = props
-
-    const ingredients = useSelector(state => state.burgerConstructor.ingredients)
     
     const dispatch = useDispatch()
     const ref = useRef(null)
@@ -40,18 +38,12 @@ const ConstructorCard = (props) => {
 
         item.index = hoverIndex
 
-        //Всё в точности, как у вас на скриншоте. Так же сравнил с примером из react-dnd.
-        //Возможно где-то здесь ошибка, но я не понимаю, где она может быть.
-        //Так же, в вашем примере кода moveCard(index, item.index), но по суте мы передаем элементы наоборот,
-        //опять же опираясь на пример из react-dnd. Это, конечно влияет на процесс, но так как он не работает, 
-        //ни с вашим примером, ни с моим, то дело не в этом. Проверил все константы, всё в порядке, всё считается.
-        //Что касается индексов, то всё работает, опять же оно и меняется и передается.
       }
     })
     const [{ isDragging }, drag] = useDrag({
       type: 'swapedCard',
       item: () => {
-        return {index: ingredients.indexOf(el)}
+        return {index}
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
