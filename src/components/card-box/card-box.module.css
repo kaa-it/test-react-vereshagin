@@ -1,11 +1,12 @@
-.cardBox{
+.cardBox {
     display: grid;
     gap: 32px 24px;
     grid-template-columns: max-content max-content;
     box-sizing: border-box;
     padding: 24px 16px 40px;
 }
-.container{
+
+.container {
     display: flex;
     flex-direction: column;
     appearance: none;

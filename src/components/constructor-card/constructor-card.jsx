@@ -1,3 +1,6 @@
+
+            //Imports//
+
 import styles from "./constructor-card.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from 'react';
@@ -9,60 +12,68 @@ import { DECREASE } from "../../services/ingredientsSlice";
 
 
 const ConstructorCard = (props) => {
-    const {el, index, moveCard} = props
-    
-    const dispatch = useDispatch()
-    const ref = useRef(null)
-    const [, drop] = useDrop({
-      accept: 'swapedCard',
-      hover(item, monitor) {
-        const dragIndex = item.index
-        const hoverIndex = index
-        
-        if (dragIndex === hoverIndex) { return }
 
-        const hoverBoundingRect = ref.current?.getBoundingClientRect()
-        const clientOffset = monitor.getClientOffset()
+            //Facilities//
 
-        if (!hoverBoundingRect || !clientOffset) { return }
+  const { el, index, moveCard } = props
 
-        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+  const dispatch = useDispatch()
+  const ref = useRef(null)
 
-        const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            //DnD//
 
-        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) { return }
+  const [, drop] = useDrop({
+    accept: 'swapedCard',
+    hover(item, monitor) {
+      const dragIndex = item.index
+      const hoverIndex = index
 
-        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) { return }
+      if (dragIndex === hoverIndex) { return }
 
-        moveCard(item.index, index)
+      const hoverBoundingRect = ref.current?.getBoundingClientRect()
+      const clientOffset = monitor.getClientOffset()
 
-        item.index = hoverIndex
+      if (!hoverBoundingRect || !clientOffset) { return }
 
-      }
-    })
-    const [{ isDragging }, drag] = useDrag({
-      type: 'swapedCard',
-      item: () => {
-        return {index}
-      },
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-      }),
-    })
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
 
-    drag(drop(ref))
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top
 
-    const opacity = !isDragging ? 1 : 0
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) { return }
 
-    return (
-        <div className={styles.card} key={el.unicId} ref={ref} style={{opacity: opacity}}>
-            <div style={{cursor: 'pointer'}} ><DragIcon/></div>
-            <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile} handleClose={()=>{
-                dispatch(DECREASE(el))
-                dispatch(DELETE_INGREDIENT(el.unicId))
-                }}/>
-        </div>
-    );
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) { return }
+
+      moveCard(item.index, index)
+
+      item.index = hoverIndex
+
+    }
+  })
+  const [{ isDragging }, drag] = useDrag({
+    type: 'swapedCard',
+    item: () => {
+      return { index }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  })
+
+            //Facilities for styles etc//  
+
+  drag(drop(ref))
+
+  const opacity = !isDragging ? 1 : 0
+
+  return (
+    <div className={styles.card} key={el.unicId} ref={ref} style={{ opacity: opacity }}>
+      <div style={{ cursor: 'pointer' }} ><DragIcon /></div>
+      <ConstructorElement text={el.name} price={el.price} thumbnail={el.image_mobile} handleClose={() => {
+        dispatch(DECREASE(el))
+        dispatch(DELETE_INGREDIENT(el.unicId))
+      }} />
+    </div>
+  );
 }
 
 export default ConstructorCard;

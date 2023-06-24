@@ -1,3 +1,6 @@
+
+            //Imports//
+
 import styles from './card.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types';
@@ -9,45 +12,46 @@ import { SET_INGREDIENT_DETAILS } from '../../services/ingredientDetailsSlice';
 import { useDrag } from 'react-dnd';
 
 const Card = (props) => {
+
+            //Facilities//
+
     const [modalVisibility, setModalVisibility] = useState(false)
 
-    const {arr} = props
+    const dispatch = useDispatch()
 
-    const [ , cardRef] = useDrag({
+    const { arr } = props
+
+                //DnD//
+
+    const [, cardRef] = useDrag({
         type: 'ingredient',
         item: arr
     })
 
-    const dispatch = useDispatch()
+            //Functions//
 
     const seeDetails = () => {
         dispatch(SET_INGREDIENT_DETAILS(arr))
         setModalVisibility(true)
     }
 
-        return (arr &&
-            <>
-            <div ref={cardRef} className={styles.container} onClick={() => {
-                    if (arr.type === 'bun') {
-                        seeDetails()
-                    }else{
-                        seeDetails()
-                    }
-                }}>
-                {arr.count > 0 && <Counter size="default" extraClass="m-1" count={arr.count}/>}
-                <img className={styles.img} src={arr.image} alt={arr.name}/>
+    return (arr &&
+        <>
+            <div ref={cardRef} className={styles.container} onClick={seeDetails}>
+                {arr.count > 0 && <Counter size="default" extraClass="m-1" count={arr.count} />}
+                <img className={styles.img} src={arr.image} alt={arr.name} />
                 <div className={`p-1 ${styles.price}`}>
                     <p className='text text_type_digits-default'>{arr.price}</p>
-                    <CurrencyIcon type="primary"/>
+                    <CurrencyIcon type="primary" />
                 </div>
                 <p className='text text_type_main-default'>{arr.name}</p>
             </div>
-            {modalVisibility &&  (<Modal visible={modalVisibility} closePopup={() => {
+            {modalVisibility && (<Modal visible={modalVisibility} closePopup={() => {
                 setModalVisibility(false)
                 dispatch(SET_INGREDIENT_DETAILS(null))
-                }}><IngredientDetails/></Modal>)}
-            </>
-        )
+            }}><IngredientDetails /></Modal>)}
+        </>
+    )
 }
 
 Card.propTypes = {

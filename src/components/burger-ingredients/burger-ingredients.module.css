@@ -7,17 +7,19 @@
     grid-template-rows: min-content min-content 1fr;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
-    padding: 0; 
-    overflow-y: scroll; 
+    padding: 0;
+    overflow-y: scroll;
     overflow-x: hidden;
 }
-.title{
+
+.title {
     padding-top: 40px;
 }
-.tabs{
+
+.tabs {
     display: flex;
     width: 100%;
 }
