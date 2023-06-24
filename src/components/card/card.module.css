@@ -9,7 +9,7 @@
     cursor: pointer;
 }
 .img{
-    margin: 0;
+    margin: auto;
 }
 .price{
     display: grid;

@@ -16,6 +16,8 @@ const BurgerConstructor = (props) => {
 
     const burgerData = useSelector(state => state.burgerConstructor)
 
+    const order = useSelector(state => state.orderDetails)
+
     const bun = burgerData.bun
     const ingredients = burgerData.ingredients
 
@@ -26,6 +28,7 @@ const BurgerConstructor = (props) => {
         drop(item){
             if (item.type === 'bun') {
                 dispatch(SET_BUN(item))
+                dispatch(INCREASE(item))
             }else{
                 dispatch(ADD_INGREDIENT(item))
                 dispatch(INCREASE(item))
@@ -35,13 +38,18 @@ const BurgerConstructor = (props) => {
 
     const [vis, setVis] = useState(false)
 
-
-
     const totalPrice = useMemo(() => {
         let inredientsPrice = 0
         ingredients.forEach(el => inredientsPrice += el.price)
-        if (bun){
+        if (bun && inredientsPrice){
             return bun.price * 2 + inredientsPrice
+        }
+        else if (!(bun || inredientsPrice)) {
+            return 'Добавьте ингредиенты'
+        }else if (!bun) {
+            return 'Не хватает булок'
+        }else if (!inredientsPrice) {
+            return 'Не хватает начинки'
         }
          
     }, [burgerData])
@@ -50,7 +58,12 @@ const BurgerConstructor = (props) => {
     const moveCard = useCallback((dragIndex, hoverIndex) => {
         dispatch(SWAP_INGREDIENT({dragIndex, hoverIndex}))
       }, [])
+    console.log(typeof totalPrice)
 
+    const isNumber = typeof totalPrice === 'number'
+
+    const priceStyle = isNumber ? 'text text_type_digits-default' : 'text text_type_main-default'
+    const disabled = isNumber ? false : true
     return (
         <form className={styles.content}>
             <ul className={styles.list} ref={dropRef}>
@@ -70,16 +83,16 @@ const BurgerConstructor = (props) => {
                 
             </ul>
             <div className={`${styles.btnBox} ${styles.right}`}>
-                <p className={`text text_type_digits-default ${styles.p}`}>{totalPrice}</p>
-                <CurrencyIcon/> 
+                <p className={`${priceStyle} ${styles.p}`}>{totalPrice}</p>
+                {isNumber && <CurrencyIcon/>} 
                 <div className={styles.btn}>
                     <Button onClick={()=>{
                         subClick([bun,...ingredients, bun])
                         setVis(true)
                     }} 
-                    htmlType="button" size="medium">Оформить заказ</Button>
+                    htmlType="button" size="medium" disabled={disabled}>Оформить заказ</Button>
                 </div>            
-                {vis &&  (<Modal visible={vis} closePopup={() => {
+                {vis && order && (<Modal visible={vis} closePopup={() => {
                     setVis(false)
                     dispatch(SET_ORDER_NUMBER(null))
                     }}><OrderDetails/></Modal>)}
