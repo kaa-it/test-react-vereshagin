@@ -1,4 +1,4 @@
-.content{
+.content {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content min-content;
@@ -7,7 +7,8 @@
     box-sizing: border-box;
     min-width: 600px;
 }
-.ul{
+
+.ul {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px 0;
@@ -21,13 +22,15 @@
     align-self: center;
     max-height: calc(85vh - 370px);
 }
-.btnBox{
+
+.btnBox {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
 }
-.list{
+
+.list {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -38,20 +41,17 @@
     grid-template-rows: min-content 1fr min-content;
     justify-items: end;
     height: fit-content;
+    min-height: 160px;
 }
-.p{
+
+.p {
     margin-right: 9.5px;
 }
-.btn{
+
+.btn {
     margin-left: 40px;
 }
-.card{
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-template-rows: min-content;
-    gap: 0 13.5px ;
-    align-items: center;
-}
-.right{
+
+.right {
     margin-right: 29.5px;
 }

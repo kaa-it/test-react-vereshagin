@@ -1,4 +1,4 @@
-.container{
+.container {
     min-height: 208px;
     display: grid;
     grid-template-rows: max-content min-content 1fr;
@@ -8,10 +8,12 @@
     max-width: 272px;
     cursor: pointer;
 }
-.img{
-    margin: 0;
+
+.img {
+    margin: auto;
 }
-.price{
+
+.price {
     display: grid;
     gap: 9px;
     grid-template-columns: max-content max-content;

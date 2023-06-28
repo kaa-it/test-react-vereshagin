@@ -10,7 +10,8 @@
   box-sizing: border-box;
   margin: auto;
 }
-.content{
+
+.content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
