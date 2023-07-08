@@ -1,7 +1,7 @@
 
             //Imports//
 
-import styles from "./app.module.css";
+import styles from "./app.module.css"; 
 
 import { useEffect } from 'react';
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ const isOk = (res) => {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка ${res.status}`);
+  return Promise.reject(`Ошибка ${res.status} :(`);
 }
 
 
